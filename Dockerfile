@@ -30,5 +30,5 @@ COPY . /app
 ENV PORT=5000
 EXPOSE 5000
 
-# Use gunicorn to run the app. Use shell form so $PORT expands.
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:$PORT", "run:app"]
+# Use gunicorn to run the app. Use shell wrapper so $PORT expands at runtime.
+CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:$PORT run:app"]

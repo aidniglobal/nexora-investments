@@ -19,4 +19,11 @@ services:
         value: "__REPLACE_WITH_EMAIL__"
       - key: MAIL_PASSWORD
         value: "__REPLACE_WITH_PASSWORD__"
+    plan: starter
+    disk: 10
+    regions:
+      - oregon
+    autoDeploy: true
+    buildCommand: ""
+    startCommand: ""
     healthCheckPath: /

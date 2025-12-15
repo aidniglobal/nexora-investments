@@ -324,6 +324,21 @@ To enable the workflow:
 - `render.yaml` is included and references the `Dockerfile`. Edit `render.yaml` to set production `DATABASE_URL` and safe `SECRET_KEY` values (use Render's dashboard or secrets to store them securely).
 - Recommended Render env vars: `DATABASE_URL`, `SECRET_KEY`, `MAIL_USERNAME`, `MAIL_PASSWORD`.
 
+### How to set secrets and environment variables on Render
+
+1. Open your service on Render and go to **Environment** → **Environment Variables**.
+2. Add the following (use Render secrets/vars, do NOT commit these to Git):
+    - `DATABASE_URL` — e.g. `postgres://USER:PASS@HOST:PORT/DBNAME` (recommended for production)
+    - `SECRET_KEY` — a long random string
+    - `MAIL_USERNAME` and `MAIL_PASSWORD` — SMTP credentials (if you use email)
+3. In Render's **Deploy** settings you can enable auto-deploy from `main` (if using `render.yaml`, Render will use it automatically).
+
+### Recommended Render service settings
+- Use the Docker environment type and point to `Dockerfile` (this repo contains `render.yaml`).
+- Set `PORT` to `10000` or leave default; the app honors `$PORT` at runtime.
+- Use a managed Postgres instance for `DATABASE_URL` in production.
+
+
 
 ## Contributing
 
