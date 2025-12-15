@@ -1,12 +1,12 @@
 from openpyxl import load_workbook
 from openpyxl import Workbook
-from flask import Flask, render_template, request, redirect, session, url_for, flash, send_from_directory, send_file
+from flask import Flask, render_template, request, redirect, session, url_for, flash, send_from_directory, send_file, jsonify
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from models import db, User, Document, UserAgreement, VerifiedDocument  # Assuming models.py has these models
+from models import db, User, Document, UserAgreement, VerifiedDocument, ResidencyApplication, ResidencyProgram
 from visa_data import get_visa_info, company_info
 from datetime import datetime
 from weasyprint import HTML
@@ -33,7 +33,7 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'pdf'}
 app.secret_key = 'eafcf00803afe5300d29b09f92de1545'
 app.config['UPLOAD_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_PATH'] = 'uploads'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nova.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nexora.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['ENV'] = 'development'  # Set to 'production' when deploying
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Limit to 2MB
@@ -485,6 +485,326 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html')
+
+
+# ==================== RESIDENCY ROUTES ====================
+
+@app.route('/residencies')
+def residencies():
+    """Browse all residency programs"""
+    from residency_data import get_all_countries
+    countries = get_all_countries()
+    return render_template('residencies.html', countries=countries)
+
+
+@app.route('/residencies/<country>')
+def residency_country(country):
+    """View residency programs for a specific country"""
+    from residency_data import residency_programs, get_programs_by_country
+    
+    if country not in residency_programs:
+        flash(f'Country {country} not found')
+        return redirect(url_for('residencies'))
+    
+    programs = residency_programs[country]
+    return render_template('residency_country.html', country=country, programs=programs)
+
+
+@app.route('/residencies/<country>/<program_name>')
+def residency_program_detail(country, program_name):
+    """View details of a specific residency program"""
+    from residency_data import residency_programs
+    
+    if country not in residency_programs:
+        flash('Country not found')
+        return redirect(url_for('residencies'))
+    
+    if program_name not in residency_programs[country]:
+        flash('Program not found')
+        return redirect(url_for('residency_country', country=country))
+    
+    program = residency_programs[country][program_name]
+    saved = False
+    if current_user.is_authenticated:
+        from models import UserSavedProgram
+        saved = UserSavedProgram.query.filter_by(
+            user_id=current_user.id,
+            program_id=program_name  # Using program name as identifier
+        ).first() is not None
+    
+    return render_template('residency_detail.html', country=country, program_name=program_name, program=program, saved=saved)
+
+
+@app.route('/residency-comparison', methods=['GET', 'POST'])
+def residency_comparison():
+    """Compare multiple residency programs"""
+    from residency_data import residency_programs
+    
+    selected_programs = []
+    if request.method == 'POST':
+        program_ids = request.form.getlist('selected_programs')
+        for program_id in program_ids:
+            parts = program_id.split('::')
+            if len(parts) == 2:
+                country, program_name = parts
+                if country in residency_programs and program_name in residency_programs[country]:
+                    selected_programs.append({
+                        'country': country,
+                        'name': program_name,
+                        'data': residency_programs[country][program_name]
+                    })
+    
+    all_countries = list(residency_programs.keys())
+    return render_template('residency_comparison.html', 
+                          all_countries=all_countries, 
+                          selected_programs=selected_programs)
+
+
+@app.route('/residency-filter', methods=['POST'])
+def residency_filter():
+    """Filter residency programs by criteria"""
+    from residency_data import residency_programs, filter_programs
+    
+    filters = {
+        'residency_type': request.form.get('residency_type'),
+        'max_investment': request.form.get('max_investment'),
+        'citizenship_available': request.form.get('citizenship_available') == 'on'
+    }
+    
+    # Remove None values
+    filters = {k: v for k, v in filters.items() if v is not None and v != 'on' and v != ''}
+    
+    if filters.get('max_investment'):
+        filters['max_investment'] = int(filters['max_investment'])
+    
+    results = filter_programs(filters)
+    
+    return render_template('residency_filter_results.html', results=results, filters=filters)
+
+
+@app.route('/residency-calculator')
+def residency_calculator():
+    """ROI and cost calculator for residency programs"""
+    return render_template('residency_calculator.html')
+
+
+@app.route('/api/calculate-roi', methods=['POST'])
+def calculate_roi():
+    """API endpoint for ROI calculations"""
+    data = request.get_json()
+    investment = float(data.get('investment', 0))
+    annual_return_percent = float(data.get('annual_return', 5))
+    years = int(data.get('years', 5))
+    
+    roi = investment * ((1 + annual_return_percent/100) ** years)
+    total_profit = roi - investment
+    
+    return {
+        'initial_investment': investment,
+        'final_value': round(roi, 2),
+        'total_profit': round(total_profit, 2),
+        'years': years
+    }
+
+
+@app.route('/residency-eligibility')
+def residency_eligibility():
+    """Eligibility checker for residency programs"""
+    return render_template('residency_eligibility.html')
+
+
+@app.route('/api/check-eligibility', methods=['POST'])
+def check_eligibility():
+    """API endpoint for eligibility checking"""
+    from residency_data import residency_programs
+    
+    data = request.get_json()
+    investment_budget = float(data.get('investment_budget', 0))
+    income = float(data.get('income', 0))
+    citizenship_wanted = data.get('citizenship_wanted') == 'true'
+    preferred_countries = data.get('preferred_countries', [])
+    
+    eligible_programs = []
+    
+    for country in preferred_countries if preferred_countries else residency_programs.keys():
+        if country not in residency_programs:
+            continue
+        
+        for program_name, program_data in residency_programs[country].items():
+            eligibility_score = 100
+            reasons = []
+            
+            # Check investment
+            if 'investment_types' in program_data:
+                min_investment = None
+                for inv_type, inv_data in program_data['investment_types'].items():
+                    amount_str = inv_data['minimum'].replace('€', '').replace('£', '').replace('CAD $', '').replace('AUD $', '').replace('AED ', '').replace('SGD $', '').replace('/year', '').replace(',', '').strip()
+                    try:
+                        amount = float(amount_str)
+                        if min_investment is None or amount < min_investment:
+                            min_investment = amount
+                    except:
+                        pass
+                
+                if min_investment and investment_budget < min_investment:
+                    eligibility_score -= 30
+                    reasons.append(f"Investment requirement: ${min_investment:,.0f}")
+            
+            # Check income
+            if program_data.get('minimum_income'):
+                income_str = program_data['minimum_income'].replace('€', '').replace('$', '').replace('/month', '').replace(',', '').strip()
+                try:
+                    min_income = float(income_str)
+                    if income < min_income * 12:
+                        eligibility_score -= 20
+                        reasons.append(f"Income requirement: ${min_income:,.0f}/month")
+                except:
+                    pass
+            
+            # Check citizenship path
+            if citizenship_wanted:
+                if 'No citizenship path' in program_data.get('path_to_citizenship', ''):
+                    eligibility_score -= 40
+                    reasons.append("No citizenship path available")
+                else:
+                    reasons.append(f"Citizenship: {program_data.get('path_to_citizenship', 'N/A')}")
+            
+            if eligibility_score >= 50:
+                eligible_programs.append({
+                    'country': country,
+                    'program': program_name,
+                    'score': max(0, eligibility_score),
+                    'reasons': reasons
+                })
+    
+    # Sort by eligibility score
+    eligible_programs.sort(key=lambda x: x['score'], reverse=True)
+    
+    return {'eligible_programs': eligible_programs[:10]}
+
+
+@app.route('/save-program', methods=['POST'])
+@login_required
+def save_program():
+    """Save a residency program to user's favorites"""
+    from models import UserSavedProgram
+    
+    country = request.form.get('country')
+    program_name = request.form.get('program_name')
+    
+    # Check if already saved
+    existing = UserSavedProgram.query.filter_by(
+        user_id=current_user.id
+    ).first()
+    
+    if not existing:
+        saved = UserSavedProgram(
+            user_id=current_user.id,
+            program_id=f"{country}::{program_name}"
+        )
+        db.session.add(saved)
+        db.session.commit()
+        flash('Program saved successfully!', 'success')
+    else:
+        flash('Program already saved', 'info')
+    
+    return redirect(request.referrer or url_for('residencies'))
+
+
+@app.route('/my-residency-applications')
+@login_required
+def my_residency_applications():
+    """View user's residency applications"""
+    from models import ResidencyApplication
+    
+    applications = ResidencyApplication.query.filter_by(user_id=current_user.id).all()
+    return render_template('my_residency_applications.html', applications=applications)
+
+
+@app.route('/residency-blog')
+def residency_blog():
+    """View residency blog posts"""
+    from models import ResidencyBlogPost
+    
+    page = request.args.get('page', 1, type=int)
+    posts = ResidencyBlogPost.query.filter_by(published=True).order_by(ResidencyBlogPost.created_at.desc()).paginate(page=page, per_page=10)
+    
+    return render_template('residency_blog.html', posts=posts)
+
+
+@app.route('/residency-blog/<slug>')
+def residency_blog_post(slug):
+    """View a specific blog post"""
+    from models import ResidencyBlogPost
+    
+    post = ResidencyBlogPost.query.filter_by(slug=slug).first_or_404()
+    post.views += 1
+    db.session.commit()
+    
+    return render_template('residency_blog_post.html', post=post)
+
+
+@app.route('/consultants')
+def consultants():
+    """View available consultants"""
+    from models import ResidencyConsultant
+    
+    page = request.args.get('page', 1, type=int)
+    specialization = request.args.get('specialization')
+    
+    query = ResidencyConsultant.query.filter_by(verified=True)
+    if specialization:
+        query = query.filter(ResidencyConsultant.specializations.contains(specialization))
+    
+    consultants_list = query.order_by(ResidencyConsultant.rating.desc()).paginate(page=page, per_page=12)
+    
+    return render_template('consultants.html', consultants=consultants_list)
+
+
+@app.route('/consultant/<int:consultant_id>')
+def consultant_profile(consultant_id):
+    """View consultant profile"""
+    from models import ResidencyConsultant
+    
+    consultant = ResidencyConsultant.query.get_or_404(consultant_id)
+    return render_template('consultant_profile.html', consultant=consultant)
+
+
+@app.route('/book-consultation', methods=['GET', 'POST'])
+@login_required
+def book_consultation():
+    """Book a consultation with a consultant"""
+    from models import ResidencyConsultant, ConsultantAppointment
+    
+    if request.method == 'POST':
+        consultant_id = request.form.get('consultant_id')
+        scheduled_at = request.form.get('scheduled_at')
+        duration = request.form.get('duration', 30)
+        notes = request.form.get('notes')
+        
+        consultant = ResidencyConsultant.query.get_or_404(consultant_id)
+        
+        try:
+            from datetime import datetime
+            scheduled_datetime = datetime.fromisoformat(scheduled_at)
+            
+            appointment = ConsultantAppointment(
+                user_id=current_user.id,
+                consultant_id=consultant_id,
+                scheduled_at=scheduled_datetime,
+                duration_minutes=int(duration),
+                notes=notes
+            )
+            db.session.add(appointment)
+            db.session.commit()
+            
+            flash('Consultation booked successfully!', 'success')
+            return redirect(url_for('my_residency_applications'))
+        except Exception as e:
+            flash(f'Error booking consultation: {str(e)}', 'danger')
+    
+    consultants_list = ResidencyConsultant.query.filter_by(verified=True).all()
+    return render_template('book_consultation.html', consultants=consultants_list)
 
 if __name__ == '__main__':
     # Ensure the database and tables are created

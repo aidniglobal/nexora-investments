@@ -2,6 +2,11 @@
 
 {% block content %}
   <div class="container">
+    <!-- Update Notice -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 500;">
+        📊 <strong>Data Updated Weekly:</strong> Nexora updates all residency and visa information every 7 days to keep you informed.
+    </div>
+
     <div class="dashboard">
       <h3>Welcome, {{ current_user.name }}!</h3>
       <img src="{{ url_for('static', filename='profile_pics/' + (current_user.profile_picture if current_user.profile_picture else 'default.jpg')) }}" alt="Profile Picture" width="100">
