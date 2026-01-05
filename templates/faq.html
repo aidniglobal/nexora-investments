@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="faq card">
+  <h1>Frequently Asked Questions (FAQ)</h1>
+  <p>Answers to common questions about Nexora and the services provided.</p>
+
+  <div class="grid grid-2 mt-4">
+    <div class="card">
+      <h3>What does Nexora do?</h3>
+      <p>Nexora is a visa and residency assistance platform that provides program comparisons, document requirements, Europass resume conversion, cover letter generation, and connects users with vetted consultants.</p>
+    </div>
+
+    <div class="card">
+      <h3>Can I upload my resume?</h3>
+      <p>Yes — upload PDFs (max 2MB). We extract key information to create a Europass-formatted resume and validate passport-style photos when required.</p>
+    </div>
+
+    <div class="card">
+      <h3>How accurate are visa requirements?</h3>
+      <p>Visa requirements are seeded from official-looking sources and may be updated by admins through the import tool; however, users should always verify with official government/VFS websites before applying.</p>
+    </div>
+
+    <div class="card">
+      <h3>How do I contact the team?</h3>
+      <p>Use the <a href="{{ url_for('inquiry') }}">Inquiry</a> form to send questions to our support team. Admins can respond via the admin interface.</p>
+    </div>
+
+    <div class="card">
+      <h3>Is my data safe?</h3>
+      <p>We follow best-practice storage for uploaded files and contact data. Review our <a href="{{ url_for('privacy') }}">Privacy Policy</a> for details.</p>
+    </div>
+
+    <div class="card">
+      <h3>How can I become a consultant?</h3>
+      <p>Consultants can apply through our contact channels — email us at <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a> with your credentials and area-of-expertise.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

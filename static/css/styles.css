@@ -135,22 +135,33 @@ form textarea:focus {
 
 /* Footer */
 footer {
-    background: linear-gradient(135deg, #333, #444);
-    color: #aaa;
-    text-align: center;
-    padding: 30px 0;
+    background: linear-gradient(135deg, #232323, #2b2b2b);
+    color: #ddd;
+    text-align: left;
+    padding: 40px 0;
     font-size: 13px;
     margin-top: 50px;
 }
 
-footer a {
-    color: #667eea;
+footer .footer-section h6 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+footer .footer-section p, footer .footer-section a {
+    color: #ccc;
     text-decoration: none;
 }
+
+footer .social a { color: #cfe2ff; font-size: 18px; margin-right: 10px; }
+footer .social a:hover { color: white; }
 
 footer a:hover {
     text-decoration: underline;
 }
+
+footer .d-flex.small { color: #999; }
+
 
 /* Alerts and Flash Messages */
 .alert {

@@ -38,7 +38,15 @@
                         </div>
                         <div>
                             {% if current_user.is_authenticated %}
-                                <small>Signed in as <strong>{{ current_user.name or current_user.email }}</strong></small>
+                                <div class="dropdown">
+                                    <a class="text-white dropdown-toggle" href="#" role="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">{{ current_user.name or current_user.email }}</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                        <li><a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                                    </ul>
+                                </div>
                             {% else %}
                                 <a class="text-white" href="{{ url_for('login') }}">Login</a>
                             {% endif %}
@@ -61,7 +69,9 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url_for('upload_resume') }}">Resume → Europass</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url_for('create_cover_letter') }}">Create Cover Letter</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url_for('visa_requirements') }}">Visa Docs</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url_for('inquiry') }}">Inquiry</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url_for('faq') }}">FAQ</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url_for('about_app') }}">Share</a></li>
                             </ul>
                         </div>
@@ -105,6 +115,20 @@
                                     <a class="text-white" href="{{ url_for('user_agreement') }}">User Agreement</a> ·
                                     <a class="text-white" href="{{ url_for('copyright') }}">Copyright</a>
                                 </p>
+                            </div>
+                            <div class="col-md-4 footer-section">
+                                <h6>Quick Links</h6>
+                                <p>
+                                    <a class="text-white" href="{{ url_for('residencies') }}">Residencies</a> ·
+                                    <a class="text-white" href="{{ url_for('visa_requirements') }}">Visa Docs</a> ·
+                                    <a class="text-white" href="{{ url_for('faq') }}">FAQ</a> ·
+                                    <a class="text-white" href="{{ url_for('inquiry') }}">Contact</a>
+                                </p>
+                                <div class="social mt-2">
+                                    <a class="text-white me-2" href="https://twitter.com/placeholder" target="_blank"><i class="bi bi-twitter"></i></a>
+                                    <a class="text-white me-2" href="https://facebook.com/placeholder" target="_blank"><i class="bi bi-facebook"></i></a>
+                                    <a class="text-white me-2" href="https://linkedin.com/placeholder" target="_blank"><i class="bi bi-linkedin"></i></a>
+                                </div>
                             </div>
                         </div>
                         <hr class="bg-secondary">

@@ -11,3 +11,7 @@ def home():
 @main.route('/about')
 def about():
     return render_template('about_us.html')
+
+@main.route('/faq')
+def faq():
+    return render_template('faq.html')
