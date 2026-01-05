@@ -17,10 +17,23 @@
 
     SECRET_KEY, DATABASE_URL (optional), UPLOAD_FOLDER, MAIL_USERNAME, MAIL_PASSWORD, MAIL_SERVER, MAIL_PORT
 
+For constrained storage (e.g., 500 MB total): prefer a lightweight install using `requirements-light.txt` (recommended) which excludes heavy packages like WeasyPrint, OpenCV and pytesseract.
+
 4. Create runtime directories and initialize DB:
 
     mkdir -p instance uploads
     flask db upgrade
+
+5. Verify disk usage and package size (important for small PA accounts):
+
+    # After creating virtualenv and installing, run the size check script included in the repo
+    ./scripts/check_size.sh
+
+    If the script reports total size above 250 MB, use `requirements-light.txt` and reinstall packages:
+
+    pip install --no-cache-dir -r requirements-light.txt
+
+    Remove unused package caches and avoid storing uploaded files on disk (consider external storage like S3 when possible).
 
 5. Configure the WSGI file (PythonAnywhere Web tab) — add at top:
 

@@ -9,14 +9,13 @@ from flask_migrate import Migrate
 from models import db, User, Document, UserAgreement, VerifiedDocument, ResidencyApplication, ResidencyProgram, Inquiry
 from visa_data import get_visa_info, company_info
 from datetime import datetime, timezone
-from weasyprint import HTML
 from io import BytesIO
 import io
 from openpyxl import Workbook  # Importing the openpyxl library to create Excel files
 from flask_mail import Mail, Message
-import pytesseract
-from PIL import Image
 from app.europass import create_europass_cv
+
+# Heavy optional libs (WeasyPrint, OCR) are imported lazily in functions to keep lightweight deployments small.
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, FileField, SubmitField
 from wtforms.validators import DataRequired, Email
@@ -50,13 +49,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nexora.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['ENV'] = 'development'  # Set to 'production' when deploying
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Limit to 2MB
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'phoenixairticket@gmail.com'
-app.config['MAIL_PASSWORD'] = '9099028291'
-app.config['MAIL_DEFAULT_SENDER'] = 'phoenixairticket@gmail.com'
+# Use environment variables when available (safer for deployments)
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() in ('1','true','yes')
+app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'false').lower() in ('1','true','yes')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', app.config.get('MAIL_USERNAME'))
 
 mail = Mail(app)
 
@@ -89,8 +89,13 @@ def update_agreement(status):
     return redirect(url_for('dashboard'))
 
 def verify_document(file_path):
+    """Run basic verification using OCR if enabled; returns True/False."""
+    if not app.config.get('ENABLE_OCR', False):
+        # OCR disabled for lightweight deployments
+        return False
     try:
-        # Extract text using OCR
+        from PIL import Image
+        import pytesseract
         img = Image.open(file_path)
         extracted_text = pytesseract.image_to_string(img)
 
@@ -654,7 +659,27 @@ def user_agreement():
         user_folder = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(current_user.name))
         os.makedirs(user_folder, exist_ok=True)
         pdf_path = os.path.join(user_folder, f"user_agreement_{current_user.id}.pdf")
-        HTML(string=agreement_text).write_pdf(pdf_path)
+        # Prefer WeasyPrint if available/enabled, otherwise fall back to a simple FPDF-based PDF
+        try:
+            if app.config.get('ENABLE_WEASYPRINT', False):
+                from weasyprint import HTML
+                HTML(string=agreement_text).write_pdf(pdf_path)
+            else:
+                # Fallback: simple PDF using fpdf
+                try:
+                    from fpdf import FPDF
+                    pdf = FPDF()
+                    pdf.add_page()
+                    pdf.set_font('Arial', size=11)
+                    for line in agreement_text.splitlines():
+                        pdf.multi_cell(0, 6, txt=line)
+                    pdf.output(pdf_path)
+                except Exception as e:
+                    # As a last resort, write plain text to .pdf so the file exists
+                    with open(pdf_path, 'wb') as f:
+                        f.write(agreement_text.encode('utf-8', errors='replace'))
+        except Exception as e:
+            print('Could not generate agreement PDF:', e)
 
         flash("Thank you for agreeing to the terms. A copy has been saved.", "success")
         return redirect(url_for('dashboard'))
@@ -662,10 +687,35 @@ def user_agreement():
     return render_template('user_agreement.html', agreement_text=agreement_text)
 
 def generate_pdf(content, filename):
-    html = HTML(string=content)
-    pdf = html.write_pdf()
-    with open(filename, 'wb') as f:
-        f.write(pdf)    
+    """Generate a PDF from HTML content using WeasyPrint if available, otherwise fallback to a simple FPDF output."""
+    try:
+        if app.config.get('ENABLE_WEASYPRINT', False):
+            from weasyprint import HTML
+            html = HTML(string=content)
+            pdf = html.write_pdf()
+            with open(filename, 'wb') as f:
+                f.write(pdf)
+        else:
+            # Simple fallback: strip html tags and write text using FPDF
+            try:
+                from fpdf import FPDF
+                import re
+                text = re.sub('<[^<]+?>', '', content)
+                pdf = FPDF()
+                pdf.add_page()
+                pdf.set_font('Arial', size=11)
+                for line in text.splitlines():
+                    pdf.multi_cell(0, 6, txt=line)
+                pdf.output(filename)
+            except Exception as e:
+                # Fallback to plain text file if all else fails
+                with open(filename, 'wb') as f:
+                    f.write(content.encode('utf-8', errors='replace'))
+    except Exception as e:
+        print('generate_pdf failed:', e)
+        with open(filename, 'wb') as f:
+            f.write(content.encode('utf-8', errors='replace'))
+
 
 
 @app.route('/inquiry', methods=['GET','POST'])

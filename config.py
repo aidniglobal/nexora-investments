@@ -20,3 +20,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
     # Note: File-based sqlite DB concurrent writes can be problematic under heavy load; prefer PostgreSQL in production.
+
+    # Feature flags to control optional heavy dependencies for lightweight deployments
+    ENABLE_OCR = os.environ.get('ENABLE_OCR', 'false').lower() in ('1','true','yes')
+    ENABLE_WEASYPRINT = os.environ.get('ENABLE_WEASYPRINT', 'false').lower() in ('1','true','yes')
+    # If ENABLE_WEASYPRINT is False the app will use a small FPDF fallback for basic PDF needs
