@@ -95,6 +95,16 @@ python run.py
 
 Access the application at `http://localhost:5000`
 
+## Deploying to PythonAnywhere
+
+A short guide is included in `DEPLOYMENT_PYTHONANYWHERE.md` which lists exact commands and a recommended WSGI snippet. Key points:
+
+- Set environment variables (see `.env.sample`) such as `SECRET_KEY`, `DATABASE_URL` (optional), `UPLOAD_FOLDER`, and mail credentials.
+- Create `instance/` and `uploads/` directories and run `flask db upgrade`.
+- Configure the WSGI file to import the app: `from app import app as application` and ensure the project path is on `sys.path`.
+
+Note: Optional dependencies like WeasyPrint, OpenCV, and Tesseract may require additional system libraries — consider using fallbacks or a separate worker host for heavy tasks.
+
 ## Project Structure
 
 ```

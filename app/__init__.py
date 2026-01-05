@@ -19,6 +19,15 @@ def create_app(test_config: dict | None = None):
     if test_config:
         app.config.update(test_config)
 
+    # Ensure runtime directories exist (instance and uploads)
+    try:
+        os.makedirs(app.instance_path, exist_ok=True)
+        upload_folder = app.config.get('UPLOAD_FOLDER')
+        if upload_folder:
+            os.makedirs(upload_folder, exist_ok=True)
+    except Exception as e:
+        print('Could not create instance or upload folders:', e)
+
     db.init_app(app)
     migrate.init_app(app, db)
 
