@@ -73,6 +73,8 @@ def create_app(test_config: dict | None = None):
         # Additional placeholder routes used by templates
         app.add_url_rule('/faq', 'faq', lambda: render_template('faq.html'))
         app.add_url_rule('/profile', 'profile', lambda: render_template('profile.html'))
+        app.add_url_rule('/logout', 'logout', lambda: redirect(url_for('login')))
+
     except Exception:
         pass
 
