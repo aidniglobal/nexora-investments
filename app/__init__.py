@@ -2,6 +2,7 @@ from flask import Flask
 from config import Config
 from flask_migrate import Migrate
 import os
+from datetime import datetime, timezone
 
 # Use the application's central db instance defined in root-level "models.py"
 from models import db
@@ -47,7 +48,7 @@ def create_app(test_config: dict | None = None):
             "email": "phoenixairticket@gmail.com",
             "address": "Aidni Global LLP, India"
         }
-        return dict(company_info=company_info, now=lambda: datetime.utcnow())
+        return dict(company_info=company_info, now=lambda: datetime.now(timezone.utc))
 
     # Add minimal routes used by templates so URL building doesn't fail in tests
     try:
@@ -66,6 +67,12 @@ def create_app(test_config: dict | None = None):
         app.add_url_rule('/privacy', 'privacy', lambda: render_template('privacy.html'))
         app.add_url_rule('/user-agreement', 'user_agreement', lambda: render_template('user_agreement.html'))
         app.add_url_rule('/copyright', 'copyright', lambda: render_template('copyright.html'))
+        app.add_url_rule('/login', 'login', lambda: render_template('login.html'), methods=['GET','POST'])
+        app.add_url_rule('/register', 'register', lambda: render_template('register.html'), methods=['GET','POST'])
+        app.add_url_rule('/dashboard', 'dashboard', lambda: render_template('dashboard.html'))
+        # Additional placeholder routes used by templates
+        app.add_url_rule('/faq', 'faq', lambda: render_template('faq.html'))
+        app.add_url_rule('/profile', 'profile', lambda: render_template('profile.html'))
     except Exception:
         pass
 
@@ -82,6 +89,21 @@ def create_app(test_config: dict | None = None):
                 app.add_url_rule('/admin/import-visa-requirements', 'admin_import_visa', root_app.admin_import_visa, methods=['GET','POST'])
             if hasattr(root_app, 'admin_visa_manage'):
                 app.add_url_rule('/admin/visa-management', 'admin_visa_manage', root_app.admin_visa_manage, methods=['GET','POST'])
+            if hasattr(root_app, 'inquiry'):
+                app.add_url_rule('/inquiry', 'inquiry', root_app.inquiry, methods=['GET','POST'])
+            if hasattr(root_app, 'get_visa_info_route'):
+                app.add_url_rule('/get_visa_info', 'get_visa_info_route', root_app.get_visa_info_route, methods=['POST'])
+            if hasattr(root_app, 'submit_application'):
+                app.add_url_rule('/submit_application', 'submit_application', root_app.submit_application, methods=['GET','POST'])
+            # Admin inquiries endpoints
+            if hasattr(root_app, 'admin_inquiries'):
+                app.add_url_rule('/admin/inquiries', 'admin_inquiries', root_app.admin_inquiries, methods=['GET','POST'])
+            if hasattr(root_app, 'admin_respond_inquiry'):
+                app.add_url_rule('/admin/inquiries/respond/<int:inq_id>', 'admin_respond_inquiry', root_app.admin_respond_inquiry, methods=['GET','POST'])
+            if hasattr(root_app, 'admin_quick_reply'):
+                app.add_url_rule('/admin/inquiries/quick_reply/<int:inq_id>', 'admin_quick_reply', root_app.admin_quick_reply, methods=['POST'])
+            if hasattr(root_app, 'admin_close_inquiry'):
+                app.add_url_rule('/admin/inquiries/close/<int:inq_id>', 'admin_close_inquiry', root_app.admin_close_inquiry, methods=['POST'])
     except Exception as e:
         # Non-fatal; dev environment may not need this
         print('Could not attach root admin routes:', e)
