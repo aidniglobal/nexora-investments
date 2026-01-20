@@ -6,21 +6,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.ico') }}" type="image/x-icon">
-    <title>{{ company_info.name }} - Visa Assistance</title>
+    <title>{{ company_info.name }}</title>
 </head>
 
 <body>
     <nav class="navbar">
         <div class="container">
-            <h1>Nexora Your personal visa & residency assistant</h1>
+            <h1>Nexora Investments</h1>
             <h3>By {{ company_info.name }}</h3>
             <!doctype html>
             <html lang="en">
             <head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <title>{% block title %}{{ company_info.name }} - Residency & Visa Services{% endblock %}</title>
-                <meta name="description" content="{{ company_info.name }} - Global residency and visa assistance">
+                <title>{% block title %}{{ company_info.name }}{% endblock %}</title>
+                <meta name="description" content="{{ company_info.name }} - Global Investments ">
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
                 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
@@ -33,7 +33,7 @@
                             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" style="width:40px;height:40px;margin-right:10px;">
                             <div>
                                 <h4 class="mb-0">{{ company_info.name }}</h4>
-                                <small>Nexora — Residency & Visa Assistant</small>
+                                <small>Nexora Investments</small>
                             </div>
                         </div>
                         <div>
@@ -100,7 +100,7 @@
                         <div class="row">
                             <div class="col-md-4 footer-section">
                                 <h6>About Nexora</h6>
-                                <p>Global residency and visa assistance platform — expert guides, program comparisons, and trusted consultants.</p>
+                                <p>Global Investments — expert guides, program comparisons, and trusted consultants.</p>
                             </div>
                             <div class="col-md-4 footer-section">
                                 <h6>Company</h6>
@@ -119,8 +119,6 @@
                             <div class="col-md-4 footer-section">
                                 <h6>Quick Links</h6>
                                 <p>
-                                    <a class="text-white" href="{{ url_for('residencies') }}">Residencies</a> ·
-                                    <a class="text-white" href="{{ url_for('visa_requirements') }}">Visa Docs</a> ·
                                     <a class="text-white" href="{{ url_for('faq') }}">FAQ</a> ·
                                     <a class="text-white" href="{{ url_for('inquiry') }}">Contact</a>
                                 </p>
