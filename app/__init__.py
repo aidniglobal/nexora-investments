@@ -61,7 +61,7 @@ def create_app(test_config: dict | None = None):
 
     # Add minimal routes used by templates so URL building doesn't fail in tests
     try:
-        from flask import render_template
+        from flask import render_template, url_for, redirect
         app.add_url_rule('/', 'index', lambda: render_template('index.html'))
         app.add_url_rule('/residencies', 'residencies', lambda: 'residencies')
         app.add_url_rule('/residency-eligibility', 'residency_eligibility', lambda: 'eligibility')
@@ -83,6 +83,7 @@ def create_app(test_config: dict | None = None):
         app.add_url_rule('/faq', 'faq', lambda: render_template('faq.html'))
         app.add_url_rule('/profile', 'profile', lambda: render_template('profile.html'))
         app.add_url_rule('/logout', 'logout', lambda: redirect(url_for('login')))
+        app.add_url_rule('/inquiry', 'inquiry', lambda: render_template('inquiry.html'), methods=['GET','POST'])
 
     except Exception:
         pass

@@ -1318,6 +1318,39 @@ def copyright():
     return render_template('copyright.html')
 
 
+@app.route('/residency-blog')
+def residency_blog():
+    """View residency blog posts"""
+    from models import ResidencyBlogPost
+    
+    page = request.args.get('page', 1, type=int)
+    category = request.args.get('category')
+    
+    query = ResidencyBlogPost.query.filter_by(published=True)
+    if category:
+        query = query.filter_by(category=category)
+    
+    posts = query.order_by(ResidencyBlogPost.created_at.desc()).paginate(page=page, per_page=10)
+    return render_template('residency_blog.html', posts=posts)
+
+
+@app.route('/residency-blog/<slug>')
+def residency_blog_post(slug):
+    """View individual blog post"""
+    from models import ResidencyBlogPost
+    from flask import abort
+    
+    post = ResidencyBlogPost.query.filter_by(slug=slug, published=True).first()
+    if not post:
+        abort(404)
+    
+    # Increment view count
+    post.views = (post.views or 0) + 1
+    db.session.commit()
+    
+    return render_template('residency_blog_post.html', post=post)
+
+
 if __name__ == '__main__':
     # Ensure the database and tables are created
     if app.config['ENV'] == 'development':
