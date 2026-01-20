@@ -5,8 +5,13 @@ from datetime import datetime, timezone
 from flask_wtf import FlaskForm
 from wtforms import StringField, EmailField, SelectField, SubmitField, DateField, FileField
 from wtforms.validators import DataRequired, Email
-import pytesseract
 from PIL import Image
+
+# Conditional import for OCR (optional heavy dependency)
+try:
+    import pytesseract
+except ImportError:
+    pytesseract = None
 
 db = SQLAlchemy()
 

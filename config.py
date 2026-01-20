@@ -3,7 +3,14 @@ import os
 class Config:
     # Set SECRET_KEY in the environment for production (e.g., export SECRET_KEY="your-secret").
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///instance/nexora.db'
+    
+    # Database URI: use env var if set, otherwise use absolute path
+    _db_path = os.environ.get('DATABASE_URL')
+    if not _db_path:
+        _instance_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'instance', 'nexora.db'))
+        _db_path = f'sqlite:///{_instance_path}'
+    SQLALCHEMY_DATABASE_URI = _db_path
+    
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TEMPLATES_AUTO_RELOAD = True
 
