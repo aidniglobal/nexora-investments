@@ -1,8 +1,8 @@
-# Nexora Platform - Quick User Guide
+# Nexora Platform - Complete User Guide
 
-## 🚀 New Features Overview
+## 🚀 Latest Updates (January 2026)
 
-Welcome to the updated Nexora platform! Here's what's new and how to use it.
+Welcome to Nexora v2.1.0! We've significantly expanded the platform with 46 countries, 75 investment programs, and an enhanced global job search experience.
 
 ---
 
@@ -35,53 +35,102 @@ Welcome to the updated Nexora platform! Here's what's new and how to use it.
 
 ---
 
-## 🌍 Global Job Search
+## 🌍 Global Job Search (Enhanced!)
 
 ### How to Search for Jobs:
 
 1. **Go to** "Job Search" in the navigation menu
-2. **Enter** a job title or keywords (e.g., "Python Developer", "Data Scientist")
-3. **Enter** a location or country (e.g., "USA", "Germany", "Singapore")
+2. **Enter** a job title or keywords (e.g., "Python Developer", "Data Scientist", "Software Engineer")
+3. **Enter** a location or country (e.g., "USA", "London", "Singapore", "Tokyo")
 4. **Click** "Search Jobs"
-5. **Browse** the results
-6. **View** job details or apply directly
+5. **Browse** the worldwide results
+6. **View** job details in modal popup (stays on your page!)
+7. **Apply** or explore more options
+
+### NEW: View Job Details in Modal Popup
+
+✨ **Better UX** - No page navigation needed!
+
+1. **Find** a job you're interested in
+2. **Click** "View Details" button
+3. **A popup modal appears** with:
+   - Full job title and description
+   - Company name and location
+   - Salary range (if available)
+   - Job type (Full-time, Contract, etc.)
+   - Posted date
+4. **From the modal, you can:**
+   - **Apply Now** - Stays on Nexora, apply directly
+   - **View on CareerJet** - Opens job board in new tab
+   - **Close** - Continue browsing other jobs
 
 ### Apply for Jobs:
 
 1. **Find** a job you're interested in
-2. **Click** "Apply Now"
-3. **Log In** (if not already logged in)
-4. **Submit** your application
-5. **Check** "My Applications" to track status
+2. **Click** "Apply Now" button
+3. **Log In** (if not already logged in) or Sign Up
+4. **Fill in** your application details
+5. **Submit** your application
+6. **Check** "My Applications" to track status
+
+### Global Coverage:
+Search jobs from **worldwide locations**: USA, UK, Canada, Germany, France, Japan, Singapore, Australia, India, and 150+ countries!
 
 ### Search Tips:
 - Be specific with job titles for better results
 - Include country names or major cities
 - Try different keywords if no results found
 - Use skill names as keywords
+- Use "View Details" to see full job description before applying
 
 ---
 
-## 💼 Investment Programs
+## 💼 Investment Programs (Expanded!)
 
 ### Browse Global Investment Opportunities:
 
 1. **Go to** "Investment Programs" in the navigation menu
-2. **Select** a country
+2. **Select** a country (now 46 countries available!)
 3. **View** available investment programs
 4. **Check** requirements for each program:
-   - Investment amount required
+   - Investment amount required (with currency)
    - Processing time
-   - Required documents
-   - Benefits
+   - Required documents list
+   - Benefits and eligibility
    - Embassy locations
+   - Interview requirements
+   - Special notes
 
-### Supported Countries (19):
-- **North America**: USA, Canada, Mexico
-- **Europe**: UK, Germany, Netherlands, Ireland, Spain, Portugal, Switzerland, Greece
-- **Asia-Pacific**: Singapore, Australia, Thailand, Malaysia, Philippines, Vietnam, New Zealand
-- **Middle East**: Dubai (UAE)
-- **South America**: Chile
+### Supported Countries - NOW 46 COUNTRIES! 🌍
+
+**Europe (18)**: UK, Germany, Netherlands, Ireland, Spain, Portugal, Switzerland, France, Italy, Belgium, Luxembourg, Cyprus, Malta, Turkey, Norway, Sweden, Finland, Iceland, Greece
+
+**Asia-Pacific (12)**: Singapore, Australia, Thailand, Malaysia, Philippines, Vietnam, New Zealand, Japan, South Korea, Hong Kong, Indonesia, India, Pakistan
+
+**Middle East (2)**: Dubai (UAE), Abu Dhabi (UAE)
+
+**Americas (4)**: USA, Canada, Mexico, Brazil, Chile
+
+**Africa (3)**: Kenya, Egypt, South Africa
+
+### Investment Range:
+- **Budget Options**: From $1,600 (Indonesia) to $50,000 (Singapore, USA)
+- **Mid-Range**: $100,000 - $500,000 (Most EU countries)
+- **Premium**: $500,000 - $2,000,000+ (Hong Kong, France, Italy, etc.)
+
+### Popular Programs by Investment Amount:
+- **Under $10,000**: Indonesia B211A Visa, Thailand Retirement Visa
+- **$50,000-$100,000**: Spain, Portugal, Germany
+- **$250,000-$500,000**: UAE, Cyprus, Malta, Greece
+- **$500,000-$1,000,000+**: Hong Kong, France, Italy, Canada
+
+### Program Categories:
+- **Investor Visas** - Direct investment programs
+- **Business/Startup Visas** - Entrepreneur programs
+- **Skilled Worker Programs** - Employment-based
+- **Retirement Programs** - For retirees
+- **Digital Nomad Visas** - Remote workers
+- **Golden Visas** - Residency through investment
 
 ---
 
@@ -265,8 +314,21 @@ A: Most investment programs allow family members. Check the "Benefits" section f
 
 ---
 
+---
+
+## ✨ What's New in v2.1.0
+
+- 🌍 **Investment Programs**: Expanded from 23 to **46 countries**
+- 📊 **Investment Options**: Expanded from 26 to **75 unique programs**
+- 💼 **Job Search Modal**: View job details without leaving app
+- 🌐 **Global Coverage**: Now covers 6 continents
+- 💰 **Better Earnings**: CareerJet affiliate integration active
+- 🎯 **Improved UX**: Seamless browsing experience
+
+---
+
 **Last Updated**: January 25, 2026  
-**Platform Version**: 2.0  
-**Status**: Active & Optimized
+**Platform Version**: 2.1.0  
+**Status**: Production Ready ✅  
 
 For additional support or questions, please contact our team!
