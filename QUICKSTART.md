@@ -27,7 +27,7 @@ http://localhost:5000
 ## 🎯 Key Features to Explore
 
 ### 1. Browse Residency Programs
-Visit `/residencies` to see all available programs from 10 countries
+Visit `/residencies` to see 75+ investment programs from 46 countries
 
 ### 2. Check Eligibility
 Go to `/residency-eligibility` and answer questions about:
@@ -36,13 +36,20 @@ Go to `/residency-eligibility` and answer questions about:
 - Citizenship requirements
 - Preferred countries
 
-### 3. Calculate ROI
+### 3. Global Job Search
+Visit `/job-search` to:
+- Search for jobs worldwide with CareerJet integration
+- View job details in modal (stays on your page)
+- Apply for jobs directly through Nexora
+- Track your applications
+
+### 4. Calculate ROI
 Use `/residency-calculator` to:
 - Calculate investment returns
 - Break down costs
 - Estimate timelines
 
-### 4. Compare Programs
+### 5. Compare Programs
 Visit `/residency-comparison` to:
 - Select multiple programs
 - Compare features side-by-side

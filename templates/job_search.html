@@ -82,9 +82,12 @@
                                                 <i class="fas fa-user-plus"></i> Sign Up to Apply
                                                 {% endif %}
                                             </a>
-                                            <a href="{{ job.url }}" target="_blank" class="btn btn-outline-info w-100 mb-2">
-                                                <i class="fas fa-external-link-alt"></i> View Details
-                                            </a>
+                                            <button type="button" class="btn btn-outline-info w-100 mb-2" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#jobDetailsModal"
+                                                    onclick="showJobDetails({{ job|tojson|safe }})">
+                                                <i class="fas fa-info-circle"></i> View Details
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -153,4 +156,95 @@
     transform: translateY(-1px);
 }
 </style>
+
+<!-- Job Details Modal -->
+<div class="modal fade" id="jobDetailsModal" tabindex="-1" aria-labelledby="jobDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="jobDetailsLabel">Job Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalJobTitle" class="mb-3">
+                    <h4 id="jobTitle" class="mb-2"></h4>
+                    <p id="jobCompany" class="text-primary fw-bold mb-2"></p>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p class="mb-2"><strong>📍 Location:</strong></p>
+                        <p id="jobLocation" class="text-muted"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2"><strong>💰 Salary:</strong></p>
+                        <p id="jobSalary" class="text-muted"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <p class="mb-2"><strong>📅 Posted:</strong></p>
+                    <p id="jobDate" class="text-muted"></p>
+                </div>
+
+                <hr>
+
+                <div class="mb-3">
+                    <p class="mb-2"><strong>📝 Description:</strong></p>
+                    <p id="jobDescription" class="text-muted" style="max-height: 300px; overflow-y: auto;"></p>
+                </div>
+
+                <div id="jobTypeSection" class="mb-3">
+                    <p class="mb-2"><strong>Job Type:</strong></p>
+                    <p id="jobType" class="badge bg-info text-dark"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="applyBtn" href="#" class="btn btn-success">
+                    <i class="fas fa-paper-plane"></i> Apply Now
+                </a>
+                <a id="viewOnCareerJetBtn" href="#" target="_blank" class="btn btn-outline-info">
+                    <i class="fas fa-external-link-alt"></i> View on CareerJet
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showJobDetails(job) {
+    // Populate modal with job details
+    document.getElementById('jobTitle').textContent = job.title;
+    document.getElementById('jobCompany').textContent = job.company;
+    document.getElementById('jobLocation').textContent = typeof job.location === 'string' ? job.location : job.location.join(', ');
+    document.getElementById('jobSalary').textContent = job.salary;
+    document.getElementById('jobDate').textContent = job.date;
+    document.getElementById('jobDescription').textContent = job.description;
+    
+    // Set job type if available
+    if (job.job_type) {
+        document.getElementById('jobType').textContent = job.job_type;
+    } else {
+        document.getElementById('jobTypeSection').style.display = 'none';
+    }
+
+    // Update Apply button
+    const applyBtn = document.getElementById('applyBtn');
+    const currentUser = {{ 'true' if current_user.is_authenticated else 'false' }};
+    
+    if (currentUser === 'true') {
+        const applyUrl = `/job-application/${job.id}?job_title=${encodeURIComponent(job.title)}&company=${encodeURIComponent(job.company)}&location=${encodeURIComponent(typeof job.location === 'string' ? job.location : job.location.join(', '))}&job_url=${encodeURIComponent(job.url)}`;
+        applyBtn.href = applyUrl;
+        applyBtn.textContent = '✈️ Apply Now';
+    } else {
+        applyBtn.href = '{{ url_for("register") }}';
+        applyBtn.innerHTML = '<i class="fas fa-user-plus"></i> Sign Up to Apply';
+    }
+
+    // Update CareerJet link
+    document.getElementById('viewOnCareerJetBtn').href = job.url;
+}
+</script>
+
 {% endblock %}

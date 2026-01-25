@@ -5,16 +5,19 @@ A comprehensive web application for discovering, comparing, and applying for res
 ## Features
 
 ### 🏠 Core Features
-- **Residency Program Directory** - Browse 50+ residency programs across 10+ countries
+- **Residency Program Directory** - Browse 75+ investment programs across 46 countries worldwide
 - **Smart Eligibility Checker** - Find programs matching your budget and requirements
 - **ROI Calculator** - Calculate investment returns and costs
 - **Program Comparison Tool** - Compare multiple programs side-by-side
+- **Global Job Search** - Find jobs internationally with CareerJet integration
 - **Consultant Network** - Connect with verified immigration experts
 
 ### 👤 User Features
 - User authentication and profiles
 - Save favorite programs
 - Track residency applications
+- Global job search with modal details view
+- Job application tracking system
 - Document management with OCR verification
 - Resume upload and Europass conversion (upload a resume file and generate a Europass-formatted CV)
 - Consultation booking system

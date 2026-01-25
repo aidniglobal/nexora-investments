@@ -640,6 +640,657 @@ investment_programs = {
             "Benefits": "Residency, family eligible, EU travel, property ownership",
             "Notes": "Real estate investment required."
         }
+    },
+    "France": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Investment proof: EUR 500,000+",
+                "Business plan: Detailed 3-5 year plan",
+                "Financial documents: Bank statements, tax returns",
+                "Employment creation documentation",
+                "Medical certificate",
+                "Police clearance"
+            ],
+            "Investment Required": "EUR 500,000 - EUR 1,000,000+",
+            "Processing Time": "60-90 days",
+            "Embassy Locations": ["Paris", "Lyon", "Marseille", "Toulouse"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, EU citizenship path after 5 years, access to EU market",
+            "Notes": "Must create jobs in France. Gateway to EU business market."
+        },
+        "Startup Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan: Innovative project",
+                "Endorsement: From accredited organization",
+                "Proof of funds: EUR 30,000+",
+                "CV and qualifications",
+                "Medical examination"
+            ],
+            "Investment Required": "EUR 30,000+",
+            "Processing Time": "4-8 weeks",
+            "Embassy Locations": ["Major cities"],
+            "Interview Requirement": "May be required",
+            "Benefits": "Fast-track residency, tax benefits for startups, EU market access",
+            "Notes": "France supports young entrepreneurs. Best for tech/innovation."
+        }
+    },
+    "Italy": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Investment proof: EUR 500,000+",
+                "Real estate or business investment documentation",
+                "Financial proof",
+                "Background check",
+                "Medical certificate"
+            ],
+            "Investment Required": "EUR 500,000 - EUR 2,000,000+",
+            "Processing Time": "60-90 days",
+            "Embassy Locations": ["Rome", "Milan", "Naples", "Florence"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, EU travel, property ownership rights",
+            "Notes": "Can invest in real estate, government bonds, or business. Cultural destination."
+        },
+        "Self-Employment Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Financial proof: EUR 10,000+",
+                "Educational credentials",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "EUR 10,000+",
+            "Processing Time": "8-12 weeks",
+            "Embassy Locations": ["Major cities"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Business ownership, residency path, family eligibility",
+            "Notes": "Supports artisans and creative professionals."
+        }
+    },
+    "Belgium": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: EUR 100,000+",
+                "Financial documents",
+                "Background check",
+                "Medical certificate"
+            ],
+            "Investment Required": "EUR 100,000+",
+            "Processing Time": "6-8 weeks",
+            "Embassy Locations": ["Brussels", "Antwerp", "Ghent"],
+            "Interview Requirement": "May be required",
+            "Benefits": "Residency, EU base, diamond trading hub access, family eligible",
+            "Notes": "Gateway to EU. Good for business startups."
+        },
+        "Employee Card": {
+            "Documents": [
+                "Passport",
+                "Employment contract",
+                "Educational credentials",
+                "Medical examination"
+            ],
+            "Investment Required": "N/A (Employment-based)",
+            "Processing Time": "2-4 weeks",
+            "Embassy Locations": ["Nationwide"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Work permit, family eligible, EU mobility",
+            "Notes": "Fast processing for skilled workers."
+        }
+    },
+    "Japan": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan: Detailed operations plan",
+                "Company registration documents",
+                "Investment proof: JPY 5,000,000+",
+                "Financial documents",
+                "Background check"
+            ],
+            "Investment Required": "JPY 5,000,000+ (~USD 35,000)",
+            "Processing Time": "4-8 weeks",
+            "Embassy Locations": ["Tokyo", "Osaka", "Kyoto"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "3-year renewable visa, family eligible, path to permanent residency",
+            "Notes": "Must show business viability. Gateway to Asia market."
+        },
+        "Skilled Professional Visa": {
+            "Documents": [
+                "Passport",
+                "Employment contract",
+                "Educational credentials",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "N/A (Employment-based)",
+            "Processing Time": "2-4 weeks",
+            "Embassy Locations": ["Nationwide"],
+            "Interview Requirement": "Rarely required",
+            "Benefits": "5-year visa, family eligible, fast-track to permanent residency",
+            "Notes": "For specialists in demand sectors."
+        }
+    },
+    "South Korea": {
+        "Investor Visa (D-2-1)": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: KRW 300,000,000+",
+                "Company registration",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "KRW 300,000,000+ (~USD 230,000)",
+            "Processing Time": "4-6 weeks",
+            "Embassy Locations": ["Seoul", "Busan", "Incheon"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "2-year renewable visa, family eligible, tech hub access",
+            "Notes": "Great for tech startups. Strong business environment."
+        },
+        "Foreign Specialist Visa (E-1)": {
+            "Documents": [
+                "Passport",
+                "Employment contract",
+                "Educational credentials: Bachelor's degree or higher",
+                "Work experience documentation",
+                "Medical examination"
+            ],
+            "Investment Required": "N/A (Employment-based)",
+            "Processing Time": "1-2 weeks",
+            "Embassy Locations": ["Major cities"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "1-3 year visa, renewable, family eligible, tech industry benefits",
+            "Notes": "Fast-track for tech professionals."
+        }
+    },
+    "Hong Kong": {
+        "Investment Visa (Capital Investment Entrant Scheme)": {
+            "Documents": [
+                "Passport",
+                "Investment proof: HKD 10,000,000+",
+                "Business plan",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "HKD 10,000,000+ (~USD 1,280,000)",
+            "Processing Time": "8-12 weeks",
+            "Embassy Locations": ["Hong Kong"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, tax benefits, Asian business hub",
+            "Notes": "One of world's best business environments."
+        },
+        "General Employment Category": {
+            "Documents": [
+                "Passport",
+                "Employment contract",
+                "Educational credentials",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "N/A (Employment-based)",
+            "Processing Time": "4-6 weeks",
+            "Embassy Locations": ["Hong Kong"],
+            "Interview Requirement": "May be required",
+            "Benefits": "2-3 year visa, renewable, family eligible, exceptional tax rates",
+            "Notes": "For professionals in specialized fields."
+        }
+    },
+    "United Arab Emirates (Abu Dhabi)": {
+        "Gold Visa": {
+            "Documents": [
+                "Passport",
+                "Investment proof: AED 2,000,000+",
+                "Real estate purchase agreement",
+                "Financial documents",
+                "Medical examination",
+                "Background check",
+                "Proof of accommodation"
+            ],
+            "Investment Required": "AED 2,000,000+ (~USD 545,000)",
+            "Processing Time": "2-4 weeks",
+            "Embassy Locations": ["Abu Dhabi", "Dubai"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "10-year visa, family eligible, real estate ownership, luxury lifestyle",
+            "Notes": "Premium investment option. Golden residence program."
+        },
+        "Green Visa": {
+            "Documents": [
+                "Passport",
+                "Self-employment certificate",
+                "Business plan",
+                "Proof of funds",
+                "Medical examination"
+            ],
+            "Investment Required": "AED 500,000+ (variable by business type)",
+            "Processing Time": "2-3 weeks",
+            "Embassy Locations": ["Major emirates"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "3-year visa, self-employment, family eligible, renewable",
+            "Notes": "New scheme for entrepreneurs and business owners."
+        }
+    },
+    "Brazil": {
+        "Temporary Visa (Investor)": {
+            "Documents": [
+                "Passport",
+                "Investment proof: BRL 500,000+",
+                "Business plan",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "BRL 500,000+ (~USD 100,000)",
+            "Processing Time": "4-8 weeks",
+            "Embassy Locations": ["Brasília", "Rio de Janeiro", "São Paulo"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "2-year renewable visa, family eligible, largest economy in LATAM",
+            "Notes": "Growing opportunities in tech, agriculture, energy sectors."
+        },
+        "Digital Visa": {
+            "Documents": [
+                "Passport",
+                "Employment contract or business registration",
+                "Proof of income: BRL 3,000+/month",
+                "Medical examination"
+            ],
+            "Investment Required": "N/A (Income requirement)",
+            "Processing Time": "2-3 weeks",
+            "Embassy Locations": ["Nationwide"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "1-year visa, renewable, work from Brazil",
+            "Notes": "For remote workers and digital entrepreneurs."
+        }
+    },
+    "Canada (Alberta)": {
+        "Self-Employed Farmer/Rancher": {
+            "Documents": [
+                "Passport",
+                "Agricultural experience documentation",
+                "Farm/ranch business plan",
+                "Financial proof: CAD 50,000+",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "CAD 50,000+",
+            "Processing Time": "16-20 months",
+            "Embassy Locations": ["Toronto", "Vancouver", "Calgary"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Permanent residency, family eligible, rural development opportunities",
+            "Notes": "Canada needs agricultural professionals."
+        }
+    },
+    "Norway": {
+        "Business Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: NOK 500,000+",
+                "Financial documents",
+                "Qualifications documentation",
+                "Medical examination"
+            ],
+            "Investment Required": "NOK 500,000+ (~USD 47,000)",
+            "Processing Time": "8-12 weeks",
+            "Embassy Locations": ["Oslo", "Bergen"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, access to Nordic market, quality of life",
+            "Notes": "High living standards. Strong business ecosystem."
+        }
+    },
+    "Sweden": {
+        "Entrepreneur Residence Permit": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: SEK 100,000+",
+                "Financial documents",
+                "Educational credentials",
+                "Medical examination"
+            ],
+            "Investment Required": "SEK 100,000+ (~USD 9,500)",
+            "Processing Time": "6-8 weeks",
+            "Embassy Locations": ["Stockholm", "Gothenburg"],
+            "Interview Requirement": "May be required",
+            "Benefits": "2-year renewable residence, family eligible, EU access",
+            "Notes": "Startup-friendly. Great for tech entrepreneurs."
+        }
+    },
+    "Finland": {
+        "Residence Permit (Entrepreneur)": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: EUR 20,000+",
+                "Financial documents",
+                "Medical examination"
+            ],
+            "Investment Required": "EUR 20,000+",
+            "Processing Time": "6-8 weeks",
+            "Embassy Locations": ["Helsinki"],
+            "Interview Requirement": "May be required",
+            "Benefits": "Permanent residence possible, family eligible, innovation hub",
+            "Notes": "Tech startup leader. Low costs compared to other Nordic countries."
+        }
+    },
+    "Iceland": {
+        "Residence Permit (Business Owner)": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: ISK 10,000,000+",
+                "Financial documents",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "ISK 10,000,000+ (~USD 75,000)",
+            "Processing Time": "8-12 weeks",
+            "Embassy Locations": ["Reykjavik"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Renewable residence, family eligible, EEA market access",
+            "Notes": "Unique opportunity in innovative Arctic economy."
+        }
+    },
+    "Luxembourg": {
+        "Business Investment Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: EUR 500,000+",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "EUR 500,000+",
+            "Processing Time": "8-12 weeks",
+            "Embassy Locations": ["Luxembourg City"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, financial hub, EU access",
+            "Notes": "Major financial center. Low tax rates for companies."
+        }
+    },
+    "Cyprus": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Investment proof: EUR 300,000+",
+                "Real estate or business investment documentation",
+                "Financial documents",
+                "Background check",
+                "Medical certificate"
+            ],
+            "Investment Required": "EUR 300,000 - EUR 2,000,000+",
+            "Processing Time": "60-90 days",
+            "Embassy Locations": ["Nicosia", "Limassol"],
+            "Interview Requirement": "May be required",
+            "Benefits": "Residency, family eligible, EU citizenship after 3 years, Mediterranean lifestyle",
+            "Notes": "Can invest in real estate or business. Affordable EU entry."
+        }
+    },
+    "Malta": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Investment proof: EUR 250,000+",
+                "Property investment or business documentation",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "EUR 250,000+",
+            "Processing Time": "30-60 days",
+            "Embassy Locations": ["Valletta"],
+            "Interview Requirement": "May be required",
+            "Benefits": "Residency, family eligible, EU access, low crime rate, English-speaking",
+            "Notes": "Easiest EU residency. English is official language."
+        },
+        "Individual Investor Programme": {
+            "Documents": [
+                "Passport",
+                "Investment proof: EUR 600,000+",
+                "Business plan",
+                "Financial documents",
+                "Medical examination"
+            ],
+            "Investment Required": "EUR 600,000+",
+            "Processing Time": "4-8 weeks",
+            "Embassy Locations": ["Valletta"],
+            "Interview Requirement": "May be required",
+            "Benefits": "EU citizenship after 12 months, family eligible, passport privilege",
+            "Notes": "Fast route to EU citizenship."
+        }
+    },
+    "Turkey": {
+        "Residence Permit (ikamet)": {
+            "Documents": [
+                "Passport",
+                "Proof of accommodation",
+                "Proof of funds: USD 300+/month",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "N/A (Minimum living cost)",
+            "Processing Time": "1-2 weeks",
+            "Embassy Locations": ["Ankara", "Istanbul"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Long-term residency, renewable, affordable living, bridge to EU",
+            "Notes": "One of cheapest developed countries to reside."
+        },
+        "Business Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: USD 250,000+",
+                "Company registration",
+                "Financial documents",
+                "Background check"
+            ],
+            "Investment Required": "USD 250,000+",
+            "Processing Time": "4-6 weeks",
+            "Embassy Locations": ["Major cities"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, gateway to Middle East and Europe",
+            "Notes": "Strategic location. Growing business opportunities."
+        }
+    },
+    "Indonesia": {
+        "B211A Visa (Extended Stay)": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: IDR 25,000,000+",
+                "Company registration",
+                "Financial documents",
+                "Medical examination"
+            ],
+            "Investment Required": "IDR 25,000,000+ (~USD 1,600)",
+            "Processing Time": "2-4 weeks",
+            "Embassy Locations": ["Jakarta", "Bali", "Surabaya"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Long-term residency, business ownership, family eligible",
+            "Notes": "Cheapest major business residency option worldwide."
+        }
+    },
+    "India": {
+        "Overseas Citizen of India (OCI)": {
+            "Documents": [
+                "Passport",
+                "Birth certificate or proof of parentage",
+                "Marriage/divorce certificates if applicable",
+                "Educational credentials",
+                "Police clearance",
+                "Medical examination"
+            ],
+            "Investment Required": "N/A (Fee-based)",
+            "Processing Time": "4-6 weeks",
+            "Embassy Locations": ["All Indian embassies"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Lifelong multiple entry, family eligible, business opportunities",
+            "Notes": "For diaspora and persons of Indian origin."
+        },
+        "Business Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Proof of funds",
+                "Company registration",
+                "Reference letter from business partner",
+                "Medical examination"
+            ],
+            "Investment Required": "Variable (business-dependent)",
+            "Processing Time": "3-5 days",
+            "Embassy Locations": ["Nationwide"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Up to 1 year validity, family can visit, business expansion hub",
+            "Notes": "Fast-track processing. Huge business opportunities."
+        }
+    },
+    "Kenya": {
+        "Investment Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: USD 50,000+",
+                "Company registration",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "USD 50,000+",
+            "Processing Time": "2-3 weeks",
+            "Embassy Locations": ["Nairobi", "Mombasa"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Renewable residency, family eligible, African market hub access",
+            "Notes": "Gateway to East Africa. Startup ecosystem growing."
+        }
+    },
+    "South Africa": {
+        "Business Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Proof of funds: ZAR 500,000+",
+                "Company registration",
+                "Financial documents",
+                "Background check",
+                "Medical examination"
+            ],
+            "Investment Required": "ZAR 500,000+ (~USD 28,000)",
+            "Processing Time": "4-6 weeks",
+            "Embassy Locations": ["Johannesburg", "Cape Town", "Pretoria"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Temporary or permanent residency option, family eligible",
+            "Notes": "Most developed economy in Africa. Gateway to African markets."
+        },
+        "Intra-Company Transfer": {
+            "Documents": [
+                "Passport",
+                "Employment contract",
+                "Proof of qualification",
+                "Medical examination"
+            ],
+            "Investment Required": "N/A (Employment-based)",
+            "Processing Time": "4-8 weeks",
+            "Embassy Locations": ["Major cities"],
+            "Interview Requirement": "May be required",
+            "Benefits": "Work permit, family eligible, good quality of life",
+            "Notes": "For multinational company transfers."
+        }
+    },
+    "Egypt": {
+        "Investment Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: USD 100,000+",
+                "Company registration",
+                "Financial documents",
+                "Background check"
+            ],
+            "Investment Required": "USD 100,000+",
+            "Processing Time": "2-3 weeks",
+            "Embassy Locations": ["Cairo", "Alexandria"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, gateway to Middle East and Africa",
+            "Notes": "Emerging market. Strategic location for business."
+        }
+    },
+    "Pakistan": {
+        "Investor Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: USD 200,000+",
+                "Company registration",
+                "Financial documents",
+                "Background check"
+            ],
+            "Investment Required": "USD 200,000+",
+            "Processing Time": "3-4 weeks",
+            "Embassy Locations": ["Islamabad", "Karachi", "Lahore"],
+            "Interview Requirement": "Usually yes",
+            "Benefits": "Residency, family eligible, growing tech hub",
+            "Notes": "Fast-growing economy. Tech talent abundant."
+        }
+    },
+    "Philippines (Additional)": {
+        "13A Visa (Spouse/Relative)": {
+            "Documents": [
+                "Passport",
+                "Marriage certificate",
+                "Spouse's birth certificate",
+                "Bank statements",
+                "Medical examination",
+                "Police clearance"
+            ],
+            "Investment Required": "N/A (Relationship-based)",
+            "Processing Time": "1-2 weeks",
+            "Embassy Locations": ["Manila", "Cebu"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Permanent resident status, multiple entry, family integration",
+            "Notes": "For foreigners married to Filipino citizens."
+        }
+    },
+    "Vietnam (Additional)": {
+        "Business Visa": {
+            "Documents": [
+                "Passport",
+                "Business plan",
+                "Investment proof: USD 100,000+",
+                "Company registration",
+                "Financial documents",
+                "Letter of invitation from Vietnamese company"
+            ],
+            "Investment Required": "USD 100,000+",
+            "Processing Time": "1-2 weeks",
+            "Embassy Locations": ["Hanoi", "Ho Chi Minh City"],
+            "Interview Requirement": "Usually not required",
+            "Benefits": "Long-term residency, business ownership, family eligible",
+            "Notes": "One of Asia's fastest-growing economies."
+        }
+    },
+    "Thailand (Additional)": {
+        "Long Term Resident Visa (LTR)": {
+            "Documents": [
+                "Passport",
+                "Background information",
+                "Proof of income/funds",
+                "Medical examination",
+                "Insurance: Coverage THB 200,000+"
+            ],
+            "Investment Required": "Variable by category (USD 80,000+ - USD 1,000,000+)",
+            "Processing Time": "2-4 weeks",
+            "Embassy Locations": ["Bangkok", "Chiang Mai"],
+            "Interview Requirement": "May be required",
+            "Benefits": "10-year residency, unlimited family members eligible, tax benefits",
+            "Notes": "New premium visa. Excellent value for lifestyle."
+        }
     }
 }
 
