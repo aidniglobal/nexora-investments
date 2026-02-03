@@ -1,0 +1,387 @@
+<!-- Interactive Eligibility Checker Template -->
+{% extends "base.html" %}
+
+{% block title %}Eligibility Checker - Nexora Investments{% endblock %}
+
+{% block content %}
+<div class="eligibility-checker" style="margin-top: 80px; padding-bottom: 60px;">
+    <!-- Header -->
+    <div class="checker-header" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1)); backdrop-filter: blur(10px); padding: 60px 20px; margin-bottom: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15);">
+        <div class="container" style="max-width: 900px; margin: 0 auto;">
+            <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; color: #f0f9ff;">
+                🎯 Eligibility Checker
+            </h1>
+            <p style="font-size: 1.1rem; color: #cbd5e1;">
+                Discover which residency programs match your profile instantly
+            </p>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+        <!-- Input Form -->
+        <div class="input-section" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 40px; margin-bottom: 40px;">
+            <h2 style="color: #e2e8f0; font-size: 1.5rem; font-weight: 700; margin-bottom: 30px;">Tell us about yourself</h2>
+
+            <form id="eligibilityForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                <!-- Investment Budget -->
+                <div>
+                    <label for="investmentBudget" style="display: block; color: #e2e8f0; font-weight: 600; margin-bottom: 8px;">
+                        💰 Investment Budget (USD)
+                    </label>
+                    <input type="number" id="investmentBudget" name="investment_budget" 
+                           placeholder="e.g., 500000" min="1" required
+                           style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); background: rgba(15, 23, 42, 0.8); color: #e2e8f0; font-size: 1rem; box-sizing: border-box;">
+                    <small style="color: #94a3b8; display: block; margin-top: 5px;">How much are you willing to invest?</small>
+                </div>
+
+                <!-- Net Worth -->
+                <div>
+                    <label for="netWorth" style="display: block; color: #e2e8f0; font-weight: 600; margin-bottom: 8px;">
+                        📊 Net Worth (USD)
+                    </label>
+                    <input type="number" id="netWorth" name="net_worth" 
+                           placeholder="e.g., 1000000" min="0" required
+                           style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); background: rgba(15, 23, 42, 0.8); color: #e2e8f0; font-size: 1rem; box-sizing: border-box;">
+                    <small style="color: #94a3b8; display: block; margin-top: 5px;">Your total assets minus liabilities</small>
+                </div>
+
+                <!-- Family Size -->
+                <div>
+                    <label for="familySize" style="display: block; color: #e2e8f0; font-weight: 600; margin-bottom: 8px;">
+                        👨‍👩‍👧‍👦 Family Size
+                    </label>
+                    <select id="familySize" name="family_size" required
+                            style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); background: rgba(15, 23, 42, 0.8); color: #e2e8f0; font-size: 1rem; box-sizing: border-box;">
+                        <option value="">Select number of family members</option>
+                        {% for i in range(1, 21) %}
+                        <option value="{{ i }}">{{ i }} {% if i == 1 %}person{% else %}people{% endif %}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Age -->
+                <div>
+                    <label for="age" style="display: block; color: #e2e8f0; font-weight: 600; margin-bottom: 8px;">
+                        🎂 Age (Optional)
+                    </label>
+                    <input type="number" id="age" name="age" 
+                           placeholder="e.g., 35" min="18" max="120"
+                           style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); background: rgba(15, 23, 42, 0.8); color: #e2e8f0; font-size: 1rem; box-sizing: border-box;">
+                </div>
+
+                <!-- Country Preference -->
+                <div>
+                    <label for="countryPreference" style="display: block; color: #e2e8f0; font-weight: 600; margin-bottom: 8px;">
+                        🌍 Country Preference (Optional)
+                    </label>
+                    <select id="countryPreference" name="country_preference"
+                            style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); background: rgba(15, 23, 42, 0.8); color: #e2e8f0; font-size: 1rem; box-sizing: border-box;">
+                        <option value="">All Countries</option>
+                    </select>
+                </div>
+
+                <!-- Program Type Preference -->
+                <div>
+                    <label for="programType" style="display: block; color: #e2e8f0; font-weight: 600; margin-bottom: 8px;">
+                        💼 Program Type (Optional)
+                    </label>
+                    <select id="programType" name="program_type_preference"
+                            style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); background: rgba(15, 23, 42, 0.8); color: #e2e8f0; font-size: 1rem; box-sizing: border-box;">
+                        <option value="">All Types</option>
+                        <option value="investor">Investor</option>
+                        <option value="employment">Employment</option>
+                        <option value="startup">Startup</option>
+                        <option value="student">Student</option>
+                        <option value="retired">Retired</option>
+                        <option value="family">Family</option>
+                        <option value="citizenship">Citizenship</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button (full width) -->
+                <div style="grid-column: 1 / -1;">
+                    <button type="submit" id="checkBtn"
+                            style="width: 100%; padding: 15px 20px; background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: all 0.3s ease; margin-bottom: 10px;">
+                        Check My Eligibility
+                    </button>
+                    <p style="color: #94a3b8; text-align: center; font-size: 0.9rem; margin: 0;">
+                        ✓ Your information is secure and private
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" style="display: none; text-align: center; padding: 60px 20px;">
+            <div style="display: inline-block; width: 50px; height: 50px; border: 4px solid rgba(139, 92, 246, 0.2); border-top-color: #8b5cf6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="color: #cbd5e1; margin-top: 20px; font-size: 1.1rem;">Analyzing your profile...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" style="display: none;">
+            <!-- Score & Summary -->
+            <div class="score-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1)); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 40px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+                    <!-- Score Circle -->
+                    <div style="text-align: center;">
+                        <div style="position: relative; width: 150px; height: 150px; margin: 0 auto; margin-bottom: 15px;">
+                            <svg style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                                <circle cx="75" cy="75" r="70" fill="none" stroke="rgba(255, 255, 255, 0.1)" stroke-width="8"></circle>
+                                <circle id="scoreCircle" cx="75" cy="75" r="70" fill="none" stroke="#8b5cf6" stroke-width="8" 
+                                        stroke-dasharray="440" stroke-dashoffset="440"
+                                        style="transition: stroke-dashoffset 1s ease;"></circle>
+                            </svg>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                <div id="scoreValue" style="color: #f0f9ff; font-size: 2.5rem; font-weight: 700;">-</div>
+                                <div style="color: #cbd5e1; font-size: 0.9rem;">Eligibility Score</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Info -->
+                    <div>
+                        <h2 id="resultMessage" style="color: #e2e8f0; font-size: 1.4rem; font-weight: 700; margin-bottom: 15px;">-</h2>
+                        <div id="resultStats" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Will be populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matching Programs -->
+            <div id="matchingPrograms" style="margin-bottom: 40px;">
+                <h2 style="color: #e2e8f0; font-size: 1.5rem; font-weight: 700; margin-bottom: 25px;">🎯 Matching Programs</h2>
+                <div id="programsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                    <!-- Will be populated -->
+                </div>
+            </div>
+
+            <!-- No Matches Message -->
+            <div id="noMatchesMessage" style="display: none; text-align: center; padding: 60px 20px; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.15);">
+                <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 20px;">
+                    No programs match your current profile.
+                </p>
+                <p style="color: #94a3b8; margin-bottom: 25px;">
+                    Consider adjusting your budget or preferences
+                </p>
+                <button id="resetBtn" style="padding: 10px 20px; background: rgba(139, 92, 246, 0.2); color: #8b5cf6; border: 1px solid #8b5cf6; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Animations -->
+<style>
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+        .checker-header {
+            padding: 40px 15px !important;
+        }
+
+        .checker-header h1 {
+            font-size: 1.8rem !important;
+        }
+
+        .input-section {
+            padding: 25px !important;
+        }
+
+        #eligibilityForm {
+            grid-template-columns: 1fr !important;
+        }
+
+        .score-card {
+            padding: 30px !important;
+        }
+
+        .score-card > div {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+        }
+
+        #programsList {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .checker-header h1 {
+            font-size: 1.5rem !important;
+        }
+
+        .input-section {
+            padding: 20px !important;
+        }
+
+        .score-card {
+            padding: 20px !important;
+        }
+
+        svg circle {
+            cx: 60 !important;
+            cy: 60 !important;
+            r: 55 !important;
+        }
+
+        #scoreValue {
+            font-size: 2rem !important;
+        }
+    }
+</style>
+
+<script>
+    // Load countries
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const response = await fetch('/residencies/api/countries');
+            const data = await response.json();
+            if (data.status === 'success') {
+                const countrySelect = document.getElementById('countryPreference');
+                data.data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    countrySelect.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Error loading countries:', error);
+        }
+    });
+
+    // Form submission
+    document.getElementById('eligibilityForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const investmentBudget = parseFloat(document.getElementById('investmentBudget').value);
+        const netWorth = parseFloat(document.getElementById('netWorth').value);
+        const familySize = parseInt(document.getElementById('familySize').value);
+        const age = document.getElementById('age').value ? parseInt(document.getElementById('age').value) : null;
+        const countryPreference = document.getElementById('countryPreference').value || null;
+        const programType = document.getElementById('programType').value || null;
+
+        // Show loading state
+        document.querySelector('.input-section').style.display = 'none';
+        document.getElementById('loadingState').style.display = 'block';
+        document.getElementById('resultsSection').style.display = 'none';
+
+        try {
+            const response = await fetch('/residencies/api/eligibility', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    investment_budget: investmentBudget,
+                    net_worth: netWorth,
+                    family_size: familySize,
+                    age: age,
+                    country_preference: countryPreference,
+                    program_type_preference: programType
+                })
+            });
+
+            const data = await response.json();
+            document.getElementById('loadingState').style.display = 'none';
+
+            if (data.status === 'success') {
+                displayResults(data);
+            } else {
+                alert('Error: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('loadingState').style.display = 'none';
+            alert('An error occurred. Please try again.');
+        }
+    });
+
+    function displayResults(data) {
+        const resultSection = document.getElementById('resultsSection');
+        const scoreValue = document.getElementById('scoreValue');
+        const scoreCircle = document.getElementById('scoreCircle');
+        const resultMessage = document.getElementById('resultMessage');
+        const resultStats = document.getElementById('resultStats');
+        const programsList = document.getElementById('programsList');
+        const noMatchesMessage = document.getElementById('noMatchesMessage');
+
+        // Update score
+        const score = data.eligibility_score;
+        scoreValue.textContent = Math.round(score) + '%';
+
+        // Animate score circle
+        const circumference = 440;
+        const offset = circumference - (score / 100) * circumference;
+        scoreCircle.style.strokeDashoffset = offset;
+
+        // Update message
+        resultMessage.textContent = data.message;
+
+        // Update stats
+        resultStats.innerHTML = `
+            <div style="padding: 10px; background: rgba(139, 92, 246, 0.2); border-radius: 8px;">
+                <p style="color: #cbd5e1; margin: 0; font-size: 0.9rem;">Programs Found</p>
+                <p style="color: #f0f9ff; margin: 0; font-size: 1.3rem; font-weight: 700;">${data.data.length}</p>
+            </div>
+        `;
+
+        // Display programs
+        if (data.data && data.data.length > 0) {
+            programsList.innerHTML = data.data.map(program => `
+                <a href="/residencies/programs/${program.id}" style="text-decoration: none;">
+                    <div style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 20px; transition: all 0.3s ease; height: 100%;" 
+                         onmouseover="this.style.background='rgba(139, 92, 246, 0.15)'; this.style.transform='translateY(-5px)'"
+                         onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                            <div>
+                                <h3 style="color: #e2e8f0; margin: 0 0 5px 0; font-size: 1rem; font-weight: 600;">
+                                    ${program.program_name}
+                                </h3>
+                                <p style="color: #8b5cf6; margin: 0; font-size: 0.85rem; font-weight: 600;">
+                                    ${program.country}
+                                </p>
+                            </div>
+                            ${program.country_flag_code ? `<img src="https://cdn.jsdelivr.net/npm/flag-icons@6.11.0/flags/4x3/${program.country_flag_code.toLowerCase()}.svg" alt="${program.country}" style="width: 35px; height: 26px; border-radius: 3px;">` : ''}
+                        </div>
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 12px;">
+                            <p style="color: #cbd5e1; margin: 0 0 8px 0; font-size: 0.9rem;">
+                                💰 ${program.investment_required || 'N/A'}
+                            </p>
+                            <p style="color: #94a3b8; margin: 0; font-size: 0.85rem;">
+                                ⏱️ ${program.processing_time || 'TBD'}
+                            </p>
+                        </div>
+                        <p style="color: #8b5cf6; margin-top: 12px; margin-bottom: 0; font-weight: 600; font-size: 0.85rem;">
+                            View Details →
+                        </p>
+                    </div>
+                </a>
+            `).join('');
+            
+            noMatchesMessage.style.display = 'none';
+        } else {
+            programsList.innerHTML = '';
+            noMatchesMessage.style.display = 'block';
+        }
+
+        resultSection.style.display = 'block';
+
+        // Scroll to results
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Reset button
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'resetBtn') {
+            document.getElementById('eligibilityForm').reset();
+            document.querySelector('.input-section').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+</script>
+{% endblock %}

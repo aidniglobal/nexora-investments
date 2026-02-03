@@ -32,7 +32,10 @@ def create_app(test_config: dict | None = None):
     migrate.init_app(app, db)
 
     from app.routes import main
+    from app.residencies import residencies
+    
     app.register_blueprint(main)
+    app.register_blueprint(residencies)
 
     # Initialize Flask-Login for this app instance
     try:

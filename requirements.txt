@@ -53,3 +53,5 @@ WTForms==3.2.1
 PyMuPDF==1.23.1
 python-docx==0.8.11
 fpdf==1.7.2
+pydantic==2.5.0
+pytest==7.4.3
