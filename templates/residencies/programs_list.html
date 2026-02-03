@@ -4,11 +4,19 @@
 {% block title %}Residency Programs - Nexora Investments{% endblock %}
 
 {% block content %}
+<style>
+    .gradient-text {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
 <div class="residencies-container" style="margin-top: 80px;">
     <!-- Header Section -->
     <div class="residencies-header" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1)); backdrop-filter: blur(10px); padding: 60px 20px; margin-bottom: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);">
         <div class="container" style="max-width: 1200px; margin: 0 auto;">
-            <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; background: linear-gradient(135deg, #8b5cf6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            <h1 class="gradient-text" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 15px;">
                 Global Residency Programs
             </h1>
             <p style="font-size: 1.1rem; color: #a0aec0; margin-bottom: 0;">
@@ -53,7 +61,7 @@
         <!-- Programs Grid -->
         <div class="programs-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 40px;">
             {% for program in programs %}
-            <div class="program-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1)); backdrop-filter: blur(15px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); padding: 25px; transition: all 0.3s ease; cursor: pointer; hover: transform 0.3s ease;" 
+            <div class="program-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1)); backdrop-filter: blur(15px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.15); padding: 25px; transition: all 0.3s ease; cursor: pointer;" 
                  onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 40px rgba(139, 92, 246, 0.2)'"
                  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                 
